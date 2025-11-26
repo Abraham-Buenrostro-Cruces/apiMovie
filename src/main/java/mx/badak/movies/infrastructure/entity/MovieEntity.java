@@ -21,10 +21,10 @@ public class MovieEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 35)
     private String title;
 
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, length = 255)
     private String description;
 
     @Column(name = "image_url", nullable = false, length = 500)
