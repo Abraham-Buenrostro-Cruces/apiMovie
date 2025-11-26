@@ -10,7 +10,6 @@ import mx.badak.movies.domain.service.MovieService;
 import mx.badak.movies.infrastructure.entity.MovieEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

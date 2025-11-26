@@ -6,8 +6,6 @@ import mx.badak.movies.domain.port.CategoryRepositoryDB;
 import mx.badak.movies.domain.service.CategoryService;
 import mx.badak.movies.infrastructure.entity.CategoryEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
