@@ -28,7 +28,7 @@ public class MovieEntity {
     private String imageUrl;
 
     @Column(name = "release_date", nullable = false)
-    private Integer releaseDate;
+    private Integer releaseYear;
 
     @Column(name = "duration_minutes", nullable = false)
     private Integer durationMinutes;
