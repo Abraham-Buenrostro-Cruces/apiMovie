@@ -1,6 +1,5 @@
 package mx.badak.movies.infrastructure.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Entity
 @Table(name = "movie")
@@ -21,10 +18,10 @@ public class MovieEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 35)
     private String title;
 
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, length = 255)
     private String description;
 
     @Column(name = "image_url", nullable = false, length = 500)
