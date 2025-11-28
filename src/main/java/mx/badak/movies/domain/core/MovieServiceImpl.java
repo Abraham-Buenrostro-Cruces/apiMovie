@@ -13,7 +13,9 @@ import mx.badak.movies.infrastructure.entity.MovieEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -31,9 +33,14 @@ public class MovieServiceImpl implements MovieService {
     public List<MovieDto> getAllMovies() {
         try {
             List<MovieEntity> movies = movieRepositoryDB.findAll();
-            List<CategoryDto> categories = categoryService.getCategoriesByMovieId(movies.get(0).getId());
-            log.info(categories.toString());
-            return MovieMapper.mapPeliculas(movies);
+
+            Map<Integer, List<CategoryDto>> movieCategories = movies.stream()
+                    .collect(Collectors.toMap(
+                            MovieEntity::getId,
+                            movie -> categoryService.getCategoriesByMovieId(movie.getId())
+                    ));
+
+            return MovieMapper.mapPeliculas(movies, movieCategories);
         }catch (Exception e){
             throw new RuntimeException("Error al obtener las películas", e);
         }
