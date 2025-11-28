@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import mx.badak.movies.utils.Constants;
 
 @Entity
 @Table(name = "movie")
@@ -17,11 +18,11 @@ public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(nullable = false, length = 35)
+    
+    @Column(nullable = false, length = Constants.TITLE_MAX_LENGTH)
     private String title;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = Constants.DESCRIPTION_MAX_LENGTH)
     private String description;
 
     @Column(name = "image_url", nullable = false, length = 500)
