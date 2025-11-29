@@ -26,13 +26,12 @@ public class LoginServiceImpl implements LoginService {
         if (user == null)
             return new LoginResponseDto(false, "Usuario no encontrado");
 
-        boolean passwordMatches = passwordEncoder.matches(
-                dto.password(),
-                user.getPassword()
-        );
+        boolean matches = passwordEncoder.matches(dto.password(), user.getPassword());
 
-        return passwordMatches
-                ? new LoginResponseDto(true, "Login exitoso")
-                : new LoginResponseDto(false, "Contraseña incorrecta");
+        if (!matches) {
+            return new LoginResponseDto(false, "Contraseña incorrecta");
+        }
+
+        return new LoginResponseDto(true, "Login exitoso");
     }
 }
