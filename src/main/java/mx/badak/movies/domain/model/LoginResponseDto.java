@@ -1,7 +1,6 @@
 package mx.badak.movies.domain.model;
 
 public record LoginResponseDto(
-    Integer id,
-    String userName,
-    Boolean isAdmin
+    boolean success,
+    String message
 ){}
