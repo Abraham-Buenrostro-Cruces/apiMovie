@@ -31,6 +31,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<MovieDto> getAllMovies() {
+        log.info(movieRepositoryDB.getCategoriesByMovieId().toString());
         try {
             List<MovieEntity> movies = movieRepositoryDB.findAll();
 
