@@ -37,4 +37,15 @@ public class CategoryServiceImpl implements CategoryService {
             throw new RuntimeException("Error al obtener todas las categorías", e);
         }
     }
+
+    @Override
+    public CategoryDto createCategory(CategoryDto dto) {
+        try {
+            CategoryEntity entity = categoryMapper.toEntity(dto);
+            CategoryEntity saved = categoryRepositoryDB.save(entity);
+            return categoryMapper.toDto(saved);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al crear la categoría", e);
+        }
+    }
 }
