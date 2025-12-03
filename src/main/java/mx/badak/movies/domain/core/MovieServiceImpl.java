@@ -41,13 +41,15 @@ public class MovieServiceImpl implements MovieService {
                     ));
 
             return MovieMapper.mapPeliculas(movies, movieCategories);
-        }catch (Exception e){
+
+        } catch (Exception e) {
             throw new RuntimeException("Error al obtener las películas", e);
         }
+
     }
 
     @Override
-    public MovieDetailedDto getMovieById(Integer movieId) {
+    public MovieDetailedDto getMovieById(final Integer movieId) {
         try {
             Optional<MovieEntity> optionalMovie = movieRepositoryDB.findById(movieId);
 
@@ -64,5 +66,7 @@ public class MovieServiceImpl implements MovieService {
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener la película con id: " + movieId, e);
         }
+
     }
+
 }

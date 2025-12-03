@@ -16,10 +16,12 @@ public class UserServiceImpl implements UserService {
     private final UserRepositoryDB repository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepositoryDB repository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
+    public UserServiceImpl(final UserRepositoryDB userRepository,
+                           final PasswordEncoder encoder) {
+        this.repository = userRepository;
+        this.passwordEncoder = encoder;
     }
+
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto createUser(UserDto dto) {
+    public UserDto createUser(final UserDto dto) {
         UserEntity entity = UserMapper.toEntity(dto);
 
         String encodedPassword = passwordEncoder.encode(dto.password());
@@ -41,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Integer id) {
+    public void deleteUser(final Integer id) {
         repository.deleteById(id);
     }
 }

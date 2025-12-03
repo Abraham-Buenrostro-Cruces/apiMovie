@@ -9,5 +9,4 @@ public interface UserRepositoryDB extends JpaRepository<UserEntity, Integer> {
 
     Optional<UserEntity> findByUserName(String username);
 
-
 }
