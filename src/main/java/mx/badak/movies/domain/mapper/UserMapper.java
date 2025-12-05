@@ -5,7 +5,7 @@ import mx.badak.movies.infrastructure.entity.UserEntity;
 
 public class UserMapper {
 
-    public static UserDto toDto(UserEntity u) {
+    public static UserDto toDto(final UserEntity u) {
         return new UserDto(
                 u.getId(),
                 u.getUserName(),
@@ -14,7 +14,7 @@ public class UserMapper {
         );
     }
 
-    public static UserEntity toEntity(UserDto dto) {
+    public static UserEntity toEntity(final UserDto dto) {
         UserEntity u = new UserEntity();
         u.setId(dto.id());
         u.setUserName(dto.userName());

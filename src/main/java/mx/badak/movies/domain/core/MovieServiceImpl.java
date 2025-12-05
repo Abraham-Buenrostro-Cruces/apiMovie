@@ -40,14 +40,14 @@ public class MovieServiceImpl implements MovieService {
                             movie -> categoryService.getCategoriesByMovieId(movie.getId())
                     ));
 
-            return MovieMapper.mapPeliculas(movies, movieCategories);
-        }catch (Exception e){
+            return MovieMapper.mapMovies(movies, movieCategories);
+        } catch (Exception e) {
             throw new RuntimeException("Error al obtener las películas", e);
         }
     }
 
     @Override
-    public MovieDetailedDto getMovieById(Integer movieId) {
+    public MovieDetailedDto getMovieById(final Integer movieId) {
         try {
             Optional<MovieEntity> optionalMovie = movieRepositoryDB.findById(movieId);
 

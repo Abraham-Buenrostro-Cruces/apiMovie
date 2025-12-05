@@ -13,13 +13,13 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepositoryDB categoryRepositoryDB;
     private final CategoryMapper categoryMapper;
 
-    public CategoryServiceImpl(CategoryRepositoryDB categoryRepositoryDB, CategoryMapper categoryMapper) {
+    public CategoryServiceImpl(final CategoryRepositoryDB categoryRepositoryDB, final CategoryMapper categoryMapper) {
         this.categoryRepositoryDB = categoryRepositoryDB;
         this.categoryMapper = categoryMapper;
     }
 
     @Override
-    public List<CategoryDto> getCategoriesByMovieId(Integer movieId) {
+    public List<CategoryDto> getCategoriesByMovieId(final Integer movieId) {
         try {
             List<CategoryEntity> entities = categoryRepositoryDB.getCategoriesByMovieId(movieId);
             return categoryMapper.toDto(entities);
@@ -39,12 +39,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto createCategory(CategoryDto dto) {
+    public CategoryDto createCategory(final CategoryDto dto) {
         try {
             CategoryEntity entity = categoryMapper.toEntity(dto);
             CategoryEntity saved = categoryRepositoryDB.save(entity);
             return categoryMapper.toDto(saved);
         } catch (Exception e) {
+            //cambiar
             throw new RuntimeException("Error al crear la categoría", e);
         }
     }

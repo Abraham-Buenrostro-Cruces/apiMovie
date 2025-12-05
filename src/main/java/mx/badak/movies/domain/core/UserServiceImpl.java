@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepositoryDB repository;
 
-    public UserServiceImpl(UserRepositoryDB repository) {
+    public UserServiceImpl(final UserRepositoryDB repository) {
         this.repository = repository;
     }
 
@@ -27,14 +27,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto createUser(UserDto dto) {
+    public UserDto createUser(final UserDto dto) {
         UserEntity entity = UserMapper.toEntity(dto);
         UserEntity saved = repository.save(entity);
         return UserMapper.toDto(saved);
     }
 
     @Override
-    public void deleteUser(Integer id) {
+    public void deleteUser(final Integer id) {
         repository.deleteById(id);
     }
 }

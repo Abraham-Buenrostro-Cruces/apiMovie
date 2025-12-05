@@ -13,6 +13,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
+import mx.badak.movies.utils.Constants;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,7 +32,7 @@ public class ReviewEntity {
     @Column(nullable = false)
     private Integer rating;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = Constants.COMMENT_MAX_LENGTH)
     private String comment;
 
     @Column(name = "created_at", nullable = false)

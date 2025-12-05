@@ -5,7 +5,7 @@ import mx.badak.movies.infrastructure.entity.ReviewEntity;
 
 public class ReviewMapper {
 
-    public static ReviewDto toDto(ReviewEntity entity) {
+    public static ReviewDto toDto(final ReviewEntity entity) {
         return new ReviewDto(
                 entity.getId(),
                 entity.getRating(),
@@ -16,7 +16,7 @@ public class ReviewMapper {
         );
     }
 
-    public static ReviewEntity toEntity(ReviewDto dto) {
+    public static ReviewEntity toEntity(final ReviewDto dto) {
         ReviewEntity entity = new ReviewEntity();
         entity.setId(dto.id());
         entity.setRating(dto.rating());

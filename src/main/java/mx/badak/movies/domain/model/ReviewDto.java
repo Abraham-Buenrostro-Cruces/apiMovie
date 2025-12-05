@@ -9,4 +9,4 @@ public record ReviewDto(
         LocalDateTime createdAt,
         Integer userId,
         Integer movieId
-) {}
+) { }

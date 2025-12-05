@@ -14,7 +14,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepositoryDB repository;
 
-    public ReviewServiceImpl(ReviewRepositoryDB repository) {
+    public ReviewServiceImpl(final ReviewRepositoryDB repository) {
         this.repository = repository;
     }
 
@@ -27,26 +27,26 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewDto createReview(ReviewDto dto) {
+    public ReviewDto createReview(final ReviewDto dto) {
         ReviewEntity entity = ReviewMapper.toEntity(dto);
         ReviewEntity saved = repository.save(entity);
         return ReviewMapper.toDto(saved);
     }
 
     @Override
-    public ReviewDto getReviewById(Integer id) {
+    public ReviewDto getReviewById(final Integer id) {
         return repository.findById(id)
                 .map(ReviewMapper::toDto)
                 .orElse(null);
     }
 
     @Override
-    public void deleteReview(Integer id) {
+    public void deleteReview(final Integer id) {
         repository.deleteById(id);
     }
 
     @Override
-    public List<ReviewDto> getReviewsByMovieId(Integer movieId) {
+    public List<ReviewDto> getReviewsByMovieId(final Integer movieId) {
         return repository.findByMovieId(movieId)
                 .stream()
                 .map(ReviewMapper::toDto)
@@ -54,7 +54,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ReviewDto> getReviewsByUserId(Integer userId) {
+    public List<ReviewDto> getReviewsByUserId(final Integer userId) {
         return repository.findByUserId(userId)
                 .stream()
                 .map(ReviewMapper::toDto)
