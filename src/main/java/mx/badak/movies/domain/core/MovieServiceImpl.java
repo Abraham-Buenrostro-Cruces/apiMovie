@@ -69,4 +69,13 @@ public class MovieServiceImpl implements MovieService {
 
     }
 
+    @Override
+    public boolean deleteById( final Integer id) {
+        if(movieRepositoryDB.existsById(id)) {
+            movieRepositoryDB.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }
