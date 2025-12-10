@@ -8,13 +8,19 @@ import java.util.List;
 import java.util.Map;
 
 public class MovieMapper {
-    public static List<MovieDto> mapMovies(final List<MovieEntity> movies, final Map<Integer, List<CategoryDto>> movieCategories) {
+    public static List<MovieDto> mapMovies(
+            final List<MovieEntity> movies,
+            final Map<Integer, List<CategoryDto>> movieCategories,
+            final Map<Integer, Double> movieAverageRating,
+            final Map<Integer, Integer> movieTotalReviews) {
         return movies.stream().map(
                 p -> new MovieDto(
                         p.getId(),
                         p.getTitle(),
                         p.getImageUrl(),
-                        movieCategories.get(p.getId())
+                        movieCategories.get(p.getId()),
+                        movieTotalReviews.getOrDefault(p.getId(), 0),
+                        movieAverageRating.getOrDefault(p.getId(), 0.0)
                 )
         ).toList();
     }

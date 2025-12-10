@@ -7,6 +7,7 @@ import mx.badak.movies.domain.model.CategoryDto;
 import mx.badak.movies.domain.model.MovieDetailedDto;
 import mx.badak.movies.domain.model.MovieDto;
 import mx.badak.movies.domain.port.MovieRepositoryDB;
+import mx.badak.movies.domain.port.ReviewRepositoryDB;
 import mx.badak.movies.domain.service.CategoryService;
 import mx.badak.movies.domain.service.MovieService;
 import mx.badak.movies.infrastructure.entity.MovieEntity;
@@ -29,9 +30,13 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieDetailedMapper movieDetailedMapper;
 
+    @Autowired
+    private ReviewRepositoryDB reviewRepositoryDB;
+
     @Override
-    public List<MovieDto> getAllMovies() {
+    public List<MovieDto> getAllMovies(int page, int size) {
         try {
+
             List<MovieEntity> movies = movieRepositoryDB.findAll();
 
             Map<Integer, List<CategoryDto>> movieCategories = movies.stream()
@@ -40,7 +45,30 @@ public class MovieServiceImpl implements MovieService {
                             movie -> categoryService.getCategoriesByMovieId(movie.getId())
                     ));
 
-            return MovieMapper.mapMovies(movies, movieCategories);
+            Map<Integer, Double> movieAverageRating = movies.stream()
+                    .collect(Collectors.toMap(
+                            MovieEntity::getId,
+                            movie -> reviewRepositoryDB.averageRatingByMovieId(movie.getId())
+                    ));
+
+            Map<Integer, Integer> movieTotalReviews = movies.stream()
+                    .collect(Collectors.toMap(
+                            MovieEntity::getId,
+                            movie -> reviewRepositoryDB.totalReviewsByMovieId(movie.getId())
+                    ));
+
+            List<MovieDto> dtos = MovieMapper.mapMovies(
+                    movies,
+                    movieCategories,
+                    movieAverageRating,
+                    movieTotalReviews
+            );
+
+            int start = Math.min(page * size, dtos.size());
+            int end = Math.min(start + size, dtos.size());
+
+            return dtos.subList(start, end);
+
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener las películas", e);
         }

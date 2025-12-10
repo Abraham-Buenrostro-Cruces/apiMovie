@@ -5,6 +5,6 @@ import mx.badak.movies.domain.model.MovieDto;
 import java.util.List;
 
 public interface MovieService {
-    List<MovieDto> getAllMovies();
+    List<MovieDto> getAllMovies(int page, int size);
     MovieDetailedDto getMovieById(Integer movieId);
 }
