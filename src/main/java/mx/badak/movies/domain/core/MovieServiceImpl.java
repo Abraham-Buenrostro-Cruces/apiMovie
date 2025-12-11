@@ -30,7 +30,7 @@ public class MovieServiceImpl implements MovieService {
     private ReviewRepositoryDB reviewRepositoryDB;
 
     @Override
-    public List<MovieDto> getAllMovies(int page, int size) {
+    public List<MovieDto> getAllMovies(final int page, final int size) {
         try {
 
             List<MovieEntity> movies = movieRepositoryDB.findAll();
@@ -71,7 +71,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieDetailedDto getMovieById(final Integer movieId, Integer userId) {
+    public MovieDetailedDto getMovieById(final Integer movieId, final Integer userId) {
         try {
             Optional<MovieEntity> optionalMovie = movieRepositoryDB.findById(movieId);
 

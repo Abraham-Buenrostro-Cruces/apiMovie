@@ -8,10 +8,10 @@ import java.util.List;
 
 public class MovieDetailedMapper {
     public static MovieDetailedDto toDto(
-            MovieEntity movie,
-            Double averageRating,
-            List<CategoryDto> categories,
-            Integer userReview
+            final MovieEntity movie,
+            final Double averageRating,
+            final List<CategoryDto> categories,
+            final Integer userReview
             ) {
 
         return new MovieDetailedDto(

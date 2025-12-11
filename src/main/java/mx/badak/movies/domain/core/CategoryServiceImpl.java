@@ -1,5 +1,6 @@
 package mx.badak.movies.domain.core;
 
+import lombok.RequiredArgsConstructor;
 import mx.badak.movies.domain.mapper.CategoryMapper;
 import mx.badak.movies.domain.model.CategoryDto;
 import mx.badak.movies.domain.port.CategoryRepositoryDB;
@@ -9,14 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepositoryDB categoryRepositoryDB;
     private final CategoryMapper categoryMapper;
-
-    public CategoryServiceImpl(final CategoryRepositoryDB categoryRepositoryDB, final CategoryMapper categoryMapper) {
-        this.categoryRepositoryDB = categoryRepositoryDB;
-        this.categoryMapper = categoryMapper;
-    }
 
     @Override
     public List<CategoryDto> getCategoriesByMovieId(final Integer movieId) {

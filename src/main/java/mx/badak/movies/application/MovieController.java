@@ -24,15 +24,15 @@ public class MovieController {
 
     @GetMapping
     public List<MovieDto> getAllMovies(
-            @RequestParam (defaultValue = "0") int page,
-            @RequestParam (defaultValue = "8") int size){
+            @RequestParam (defaultValue = "0") final int page,
+            @RequestParam (defaultValue = "8") final int size) {
         return movieService.getAllMovies(page, size);
     }
 
-    @GetMapping("/{id}")
-    public MovieDetailedDto getMovieById(
+    @GetMapping("/details/{id}")
+    public MovieDetailedDto getDetailsByMovieById(
             @PathVariable("id") final Integer movieId,
-            @RequestParam Integer userId
+            @RequestParam final Integer userId
     ) {
         return movieService.getMovieById(movieId, userId);
     }
