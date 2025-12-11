@@ -9,6 +9,8 @@ public record MovieDetailedDto(
     String description,
     Integer releaseYear,
     Integer durationMinutes,
+    Double averageRating,
+    Integer userRating,
     List<CategoryDto> genres
 ) {
 

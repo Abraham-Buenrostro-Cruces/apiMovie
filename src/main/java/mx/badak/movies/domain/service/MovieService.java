@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface MovieService {
     List<MovieDto> getAllMovies(int page, int size);
-    MovieDetailedDto getMovieById(Integer movieId);
+    MovieDetailedDto getMovieById(Integer movieId, Integer userId);
 }

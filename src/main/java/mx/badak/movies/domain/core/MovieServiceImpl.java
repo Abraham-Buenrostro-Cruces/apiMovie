@@ -26,10 +26,6 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepositoryDB movieRepositoryDB;
     @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private MovieDetailedMapper movieDetailedMapper;
-
     @Autowired
     private ReviewRepositoryDB reviewRepositoryDB;
 
@@ -75,7 +71,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieDetailedDto getMovieById(final Integer movieId) {
+    public MovieDetailedDto getMovieById(final Integer movieId, Integer userId) {
         try {
             Optional<MovieEntity> optionalMovie = movieRepositoryDB.findById(movieId);
 
@@ -84,10 +80,10 @@ public class MovieServiceImpl implements MovieService {
             }
 
             MovieEntity movie = optionalMovie.get();
-
             List<CategoryDto> categories = categoryService.getCategoriesByMovieId(movieId);
-
-            return movieDetailedMapper.toDto(movie, categories);
+            Double averageRating = reviewRepositoryDB.averageRatingByMovieId(movieId);
+            Integer userRating = reviewRepositoryDB.getRatingByMovieIdAndUserId(movieId, userId);
+            return MovieDetailedMapper.toDto(movie, averageRating, categories, userRating);
 
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener la película con id: " + movieId, e);

@@ -18,4 +18,7 @@ public interface ReviewRepositoryDB extends JpaRepository<ReviewEntity, Integer>
 
     @Query("SELECT COALESCE(AVG(r.rating), 0) FROM ReviewEntity r WHERE r.movieId = :movieId")
     double averageRatingByMovieId(@Param("movieId") Integer movieId);
+
+    @Query("SELECT r.rating FROM ReviewEntity r WHERE r.movieId = :movieId AND r.userId = :userId")
+    Integer getRatingByMovieIdAndUserId(@Param("movieId") Integer movieId, @Param("userId") Integer userId);
 }
