@@ -34,7 +34,7 @@ public class MovieServiceImpl implements MovieService {
     private ReviewRepositoryDB reviewRepositoryDB;
 
     @Override
-    public List<MovieDto> getAllMovies(int page, int size) {
+    public List<MovieDto> getAllMovies(final int page, final int size) {
         try {
 
             List<MovieEntity> movies = movieRepositoryDB.findAll();
