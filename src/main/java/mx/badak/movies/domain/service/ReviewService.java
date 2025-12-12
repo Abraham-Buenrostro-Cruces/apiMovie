@@ -17,4 +17,7 @@ public interface ReviewService {
     List<ReviewDto> getReviewsByMovieId(Integer movieId);
 
     List<ReviewDto> getReviewsByUserId(Integer userId);
+
+    ReviewDto updateReview(Integer movieId, Integer userId, ReviewDto dto);
+
 }

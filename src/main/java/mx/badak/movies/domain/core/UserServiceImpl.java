@@ -37,4 +37,12 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(final Integer id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public UserDto getUserByUsername(String username) {
+        return repository.findByUserName(username)
+                .map(UserMapper::toDto)
+                .orElseThrow( () -> new RuntimeException("Usurio no encontrado")
+                        );
+    }
 }

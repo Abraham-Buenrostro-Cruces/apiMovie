@@ -11,4 +11,7 @@ public interface UserService {
     UserDto createUser(UserDto dto);
 
     void deleteUser(Integer id);
+
+    UserDto getUserByUsername(String username);
+
 }
