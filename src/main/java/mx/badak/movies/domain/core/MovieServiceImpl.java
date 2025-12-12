@@ -93,4 +93,54 @@ public class MovieServiceImpl implements MovieService {
             throw new RuntimeException("Error al obtener la película con id: " + movieId, e);
         }
     }
+
+    @Override
+    public List<MovieDto> getMoviesByCategory(Integer categoryId, int page, int size) {
+        try {
+            // Obtiene todas las películas
+            List<MovieEntity> movies = movieRepositoryDB.findAll();
+
+            // Filtra películas por categoría usando tu servicio existente
+            List<MovieEntity> filteredMovies = movies.stream()
+                    .filter(movie -> {
+                        List<CategoryDto> categories = categoryService.getCategoriesByMovieId(movie.getId());
+                        return categories.stream().anyMatch(cat -> cat.id().equals(categoryId));
+                    })
+                    .toList();
+
+            // Armado de mapas igual que en getAllMovies
+            Map<Integer, List<CategoryDto>> movieCategories = filteredMovies.stream()
+                    .collect(Collectors.toMap(
+                            MovieEntity::getId,
+                            movie -> categoryService.getCategoriesByMovieId(movie.getId())
+                    ));
+
+            Map<Integer, Double> movieAverageRating = filteredMovies.stream()
+                    .collect(Collectors.toMap(
+                            MovieEntity::getId,
+                            movie -> reviewRepositoryDB.averageRatingByMovieId(movie.getId())
+                    ));
+
+            Map<Integer, Integer> movieTotalReviews = filteredMovies.stream()
+                    .collect(Collectors.toMap(
+                            MovieEntity::getId,
+                            movie -> reviewRepositoryDB.totalReviewsByMovieId(movie.getId())
+                    ));
+
+            List<MovieDto> dtos = MovieMapper.mapMovies(
+                    filteredMovies,
+                    movieCategories,
+                    movieAverageRating,
+                    movieTotalReviews
+            );
+
+            int start = Math.min(page * size, dtos.size());
+            int end = Math.min(start + size, dtos.size());
+
+            return dtos.subList(start, end);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener películas por categoría", e);
+        }
+    }
 }

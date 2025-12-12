@@ -29,4 +29,13 @@ public class MovieController {
     public MovieDetailedDto getMovieById(@PathVariable("id") final Integer movieId) {
         return movieService.getMovieById(movieId);
     }
+
+    @GetMapping("/category/{categoryId}")
+    public List<MovieDto> getMoviesByCategory(
+            @PathVariable Integer categoryId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "8") int size
+    ) {
+        return movieService.getMoviesByCategory(categoryId, page, size);
+    }
 }
