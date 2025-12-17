@@ -40,7 +40,7 @@ public class MovieServiceImpl implements MovieService {
                             movie -> categoryService.getCategoriesByMovieId(movie.getId())
                     ));
 
-            return MovieMapper.mapPeliculas(movies, movieCategories);
+            return MovieMapper.mapMovies(movies, movieCategories);
 
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener las películas", e);

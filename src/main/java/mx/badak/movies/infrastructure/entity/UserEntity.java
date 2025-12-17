@@ -3,6 +3,7 @@ package mx.badak.movies.infrastructure.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import mx.badak.movies.utils.Constants;
 
 @Entity
 @Table(name = "user_")

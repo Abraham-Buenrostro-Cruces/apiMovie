@@ -10,4 +10,5 @@ public class Constants {
     public static final int URL_MAX_LENGTH = 500;
     public static final int USERNAME_MAX_LENGTH = 30;
     public static final int PASSWORD_MAX_LENGTH = 250;
+    public static final int COMMENT_MAX_LENGTH = 500;
 }
