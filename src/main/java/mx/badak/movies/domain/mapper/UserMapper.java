@@ -9,7 +9,7 @@ public class UserMapper {
         return new UserDto(
                 u.getId(),
                 u.getUserName(),
-                u.getPassword(),
+                null,
                 u.getIsAdmin()
         );
     }

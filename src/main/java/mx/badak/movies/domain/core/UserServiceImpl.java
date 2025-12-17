@@ -5,6 +5,7 @@ import mx.badak.movies.domain.model.UserDto;
 import mx.badak.movies.domain.port.UserRepositoryDB;
 import mx.badak.movies.domain.service.UserService;
 import mx.badak.movies.infrastructure.entity.UserEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +14,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepositoryDB repository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(final UserRepositoryDB repository) {
-        this.repository = repository;
+    public UserServiceImpl(final UserRepositoryDB userRepository,
+                           final PasswordEncoder encoder) {
+        this.repository = userRepository;
+        this.passwordEncoder = encoder;
     }
+
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -29,6 +34,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(final UserDto dto) {
         UserEntity entity = UserMapper.toEntity(dto);
+
+        String encodedPassword = passwordEncoder.encode(dto.password());
+        entity.setPassword(encodedPassword);
+
         UserEntity saved = repository.save(entity);
         return UserMapper.toDto(saved);
     }

@@ -15,6 +15,7 @@ import mx.badak.movies.utils.Constants;
 @Getter
 @Setter
 public class CategoryEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

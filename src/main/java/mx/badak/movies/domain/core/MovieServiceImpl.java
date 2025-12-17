@@ -40,10 +40,12 @@ public class MovieServiceImpl implements MovieService {
                             movie -> categoryService.getCategoriesByMovieId(movie.getId())
                     ));
 
-            return MovieMapper.mapMovies(movies, movieCategories);
+            return MovieMapper.mapPeliculas(movies, movieCategories);
+
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener las películas", e);
         }
+
     }
 
     @Override
@@ -64,5 +66,16 @@ public class MovieServiceImpl implements MovieService {
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener la película con id: " + movieId, e);
         }
+
     }
+
+    @Override
+    public boolean deleteById( final Integer id) {
+        if(movieRepositoryDB.existsById(id)) {
+            movieRepositoryDB.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }

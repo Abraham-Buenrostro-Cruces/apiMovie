@@ -7,4 +7,5 @@ import java.util.List;
 public interface MovieService {
     List<MovieDto> getAllMovies();
     MovieDetailedDto getMovieById(Integer movieId);
+    boolean deleteById(Integer movieId);
 }

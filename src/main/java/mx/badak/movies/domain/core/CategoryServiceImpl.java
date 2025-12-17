@@ -13,9 +13,9 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepositoryDB categoryRepositoryDB;
     private final CategoryMapper categoryMapper;
 
-    public CategoryServiceImpl(final CategoryRepositoryDB categoryRepositoryDB, final CategoryMapper categoryMapper) {
-        this.categoryRepositoryDB = categoryRepositoryDB;
-        this.categoryMapper = categoryMapper;
+    public CategoryServiceImpl(final CategoryRepositoryDB repositoryDB, final CategoryMapper mapper) {
+        this.categoryRepositoryDB = repositoryDB;
+        this.categoryMapper = mapper;
     }
 
     @Override

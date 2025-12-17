@@ -5,4 +5,6 @@ public record UserDto(
         String userName,
         String password,
         Boolean isAdmin
-) { }
+) {
+
+}
