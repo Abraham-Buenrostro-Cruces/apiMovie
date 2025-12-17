@@ -30,10 +30,16 @@ public class MovieServiceImpl implements MovieService {
     private ReviewRepositoryDB reviewRepositoryDB;
 
     @Override
-    public List<MovieDto> getAllMovies(final int page, final int size) {
+    public List<MovieDto> getAllMovies(final int page, final int size, final String name) {
         try {
 
-            List<MovieEntity> movies = movieRepositoryDB.findAll();
+            List<MovieEntity> movies;
+
+            if (name != null && !name.isBlank()) {
+                movies = movieRepositoryDB.findByTitleContainingIgnoreCase(name);
+            } else {
+                movies = movieRepositoryDB.findAll();
+            }
 
             Map<Integer, List<CategoryDto>> movieCategories = movies.stream()
                     .collect(Collectors.toMap(
