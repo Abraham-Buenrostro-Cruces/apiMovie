@@ -9,6 +9,7 @@ import mx.badak.movies.domain.model.MovieDetailedDto;
 import mx.badak.movies.domain.model.MovieDto;
 import mx.badak.movies.domain.port.CategoryRepositoryDB;
 import mx.badak.movies.domain.port.MovieRepositoryDB;
+import mx.badak.movies.domain.port.ReviewRepositoryDB;
 import mx.badak.movies.domain.service.CategoryService;
 import mx.badak.movies.domain.service.MovieService;
 import mx.badak.movies.infrastructure.entity.MovieEntity;
@@ -30,9 +31,8 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepositoryDB movieRepositoryDB;
     @Autowired
     private CategoryService categoryService;
-
     @Autowired
-    private MovieDetailedMapper movieDetailedMapper;
+    private ReviewRepositoryDB reviewRepositoryDB;
 
     @Autowired
     private CategoryRepositoryDB categoryRepositoryDB;
@@ -41,8 +41,9 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
-    public List<MovieDto> getAllMovies() {
+    public List<MovieDto> getAllMovies(final int page, final int size) {
         try {
+
             List<MovieEntity> movies = movieRepositoryDB.findAll();
 
             Map<Integer, List<CategoryDto>> movieCategories = movies.stream()
@@ -51,15 +52,38 @@ public class MovieServiceImpl implements MovieService {
                             movie -> categoryService.getCategoriesByMovieId(movie.getId())
                     ));
 
-            return MovieMapper.mapMovies(movies, movieCategories);
-        }catch (Exception e){
+            Map<Integer, Double> movieAverageRating = movies.stream()
+                    .collect(Collectors.toMap(
+                            MovieEntity::getId,
+                            movie -> reviewRepositoryDB.averageRatingByMovieId(movie.getId())
+                    ));
+
+            Map<Integer, Integer> movieTotalReviews = movies.stream()
+                    .collect(Collectors.toMap(
+                            MovieEntity::getId,
+                            movie -> reviewRepositoryDB.totalReviewsByMovieId(movie.getId())
+                    ));
+
+            List<MovieDto> dtos = MovieMapper.mapMovies(
+                    movies,
+                    movieCategories,
+                    movieAverageRating,
+                    movieTotalReviews
+            );
+
+            int start = Math.min(page * size, dtos.size());
+            int end = Math.min(start + size, dtos.size());
+
+            return dtos.subList(start, end);
+
+        } catch (Exception e) {
             throw new RuntimeException(Constants.ERROR_MOVIES, e);
         }
 
     }
 
     @Override
-    public MovieDetailedDto getMovieById(final Integer movieId) {
+    public MovieDetailedDto getMovieById(final Integer movieId, final Integer userId) {
         try {
             Optional<MovieEntity> optionalMovie = movieRepositoryDB.findById(movieId);
 
@@ -68,10 +92,10 @@ public class MovieServiceImpl implements MovieService {
             }
 
             MovieEntity movie = optionalMovie.get();
-
             List<CategoryDto> categories = categoryService.getCategoriesByMovieId(movieId);
-
-            return movieDetailedMapper.toDto(movie, categories);
+            Double averageRating = reviewRepositoryDB.averageRatingByMovieId(movieId);
+            Integer userRating = reviewRepositoryDB.getRatingByMovieIdAndUserId(movieId, userId);
+            return MovieDetailedMapper.toDto(movie, averageRating, categories, userRating);
 
         } catch (Exception e) {
             throw new RuntimeException(Constants.ERROR_GET_MOVIE + movieId, e);

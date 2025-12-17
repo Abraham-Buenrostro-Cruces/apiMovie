@@ -1,5 +1,6 @@
 package mx.badak.movies.domain.core;
 
+import lombok.RequiredArgsConstructor;
 import mx.badak.movies.domain.mapper.UserMapper;
 import mx.badak.movies.domain.model.UserDto;
 import mx.badak.movies.domain.port.UserRepositoryDB;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepositoryDB repository;

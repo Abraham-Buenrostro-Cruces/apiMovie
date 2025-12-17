@@ -1,5 +1,6 @@
 package mx.badak.movies.domain.core;
 
+import lombok.RequiredArgsConstructor;
 import mx.badak.movies.domain.mapper.ReviewMapper;
 import mx.badak.movies.domain.model.ReviewDto;
 import mx.badak.movies.domain.port.ReviewRepositoryDB;
@@ -10,13 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepositoryDB repository;
-
-    public ReviewServiceImpl(final ReviewRepositoryDB repository) {
-        this.repository = repository;
-    }
 
     @Override
     public List<ReviewDto> getAllReviews() {

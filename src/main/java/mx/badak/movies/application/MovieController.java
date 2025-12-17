@@ -1,6 +1,5 @@
 package mx.badak.movies.application;
 
-
 import lombok.extern.slf4j.Slf4j;
 import mx.badak.movies.domain.model.MovieCreatedDto;
 import mx.badak.movies.domain.model.MovieDetailedDto;
@@ -23,14 +22,18 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping
-    public List<MovieDto> getAllMovies() {
-
-        return movieService.getAllMovies();
+    public List<MovieDto> getAllMovies(
+            @RequestParam (defaultValue = "0") final int page,
+            @RequestParam (defaultValue = "8") final int size) {
+        return movieService.getAllMovies(page, size);
     }
 
-    @GetMapping("/{id}")
-    public MovieDetailedDto getMovieById(@PathVariable("id") final Integer movieId) {
-        return movieService.getMovieById(movieId);
+    @GetMapping("/details/{id}")
+    public MovieDetailedDto getDetailsByMovieById(
+            @PathVariable("id") final Integer movieId,
+            @RequestParam final Integer userId
+    ) {
+        return movieService.getMovieById(movieId, userId);
     }
 
     @DeleteMapping("/{id}")
