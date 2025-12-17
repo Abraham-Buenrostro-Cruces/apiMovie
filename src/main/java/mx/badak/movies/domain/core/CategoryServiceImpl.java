@@ -13,13 +13,13 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepositoryDB categoryRepositoryDB;
     private final CategoryMapper categoryMapper;
 
-    public CategoryServiceImpl(CategoryRepositoryDB categoryRepositoryDB, CategoryMapper categoryMapper) {
-        this.categoryRepositoryDB = categoryRepositoryDB;
-        this.categoryMapper = categoryMapper;
+    public CategoryServiceImpl(final CategoryRepositoryDB repositoryDB, final CategoryMapper mapper) {
+        this.categoryRepositoryDB = repositoryDB;
+        this.categoryMapper = mapper;
     }
 
     @Override
-    public List<CategoryDto> getCategoriesByMovieId(Integer movieId) {
+    public List<CategoryDto> getCategoriesByMovieId(final Integer movieId) {
         try {
             List<CategoryEntity> entities = categoryRepositoryDB.getCategoriesByMovieId(movieId);
             return categoryMapper.toDto(entities);

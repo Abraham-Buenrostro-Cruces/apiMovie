@@ -19,11 +19,23 @@ public class MovieController {
 
     @GetMapping
     public List<MovieDto> getAllMovies() {
+
         return movieService.getAllMovies();
     }
 
     @GetMapping("/{id}")
-    public MovieDetailedDto getMovieById(@PathVariable("id") Integer movieId){
+    public MovieDetailedDto getMovieById(@PathVariable("id") final Integer movieId) {
         return movieService.getMovieById(movieId);
     }
+
+    @DeleteMapping("/{id}")
+    public String deleteMovieById(@PathVariable("id") final Integer movieId) {
+        boolean deleted = movieService.deleteById(movieId);
+        if (deleted) {
+            return "Pelicula eliminada correctamente.";
+        } else {
+            return "No se pudo eliminar la pelicula.";
+        }
+    }
+
 }

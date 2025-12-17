@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MovieMapper {
-    public static List<MovieDto> mapPeliculas(List<MovieEntity> peliculas, Map<Integer, List<CategoryDto>> movieCategories) {
+    public static List<MovieDto> mapPeliculas(
+            final List<MovieEntity> peliculas,
+            final Map<Integer, List<CategoryDto>> movieCategories) {
         return peliculas.stream().map(
                 p -> new MovieDto(
                         p.getId(),
