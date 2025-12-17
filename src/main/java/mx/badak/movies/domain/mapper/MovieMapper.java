@@ -1,6 +1,7 @@
 package mx.badak.movies.domain.mapper;
 
 import mx.badak.movies.domain.model.CategoryDto;
+import mx.badak.movies.domain.model.MovieCreatedDto;
 import mx.badak.movies.domain.model.MovieDto;
 import mx.badak.movies.infrastructure.entity.MovieEntity;
 
@@ -17,5 +18,15 @@ public class MovieMapper {
                         movieCategories.get(p.getId())
                 )
         ).toList();
+    }
+
+    public static MovieEntity toEntity(MovieCreatedDto movie) {
+        MovieEntity movieEntity = new MovieEntity();
+        movieEntity.setTitle(movie.title());
+        movieEntity.setImageUrl(movie.imageUrl());
+        movieEntity.setDescription(movie.description());
+        movieEntity.setReleaseYear(movie.releaseYear());
+        movieEntity.setDurationMinutes(movie.durationMinutes());
+        return movieEntity;
     }
 }
