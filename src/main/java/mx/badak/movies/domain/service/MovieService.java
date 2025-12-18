@@ -11,4 +11,5 @@ public interface MovieService {
     boolean deleteById(Integer movieId);
     void postMovie(MovieCreatedDto createdDto);
     void updateMovie(Integer movieId, MovieCreatedDto updatedDto);
+    List<MovieDto> getMoviesByCategory(Integer categoryId, int page, int size);
 }

@@ -63,4 +63,13 @@ public class MovieController {
         movieService.updateMovie(movieId, updatedDto);
     }
 
+
+    @GetMapping("/category/{categoryId}")
+    public List<MovieDto> getMoviesByCategory(
+            @PathVariable Integer categoryId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "8") int size
+    ) {
+        return movieService.getMoviesByCategory(categoryId, page, size);
+    }
 }
