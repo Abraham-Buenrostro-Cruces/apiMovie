@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/peliculas")
+@RequestMapping("/movies")
 @CrossOrigin
 public class MovieController {
 
@@ -80,8 +80,8 @@ public class MovieController {
         return movieService.getMoviesByCategory(categoryId, page, size);
     }
 
-    @GetMapping("/{id_pelicula}/related")
-    public ResponseEntity<List<RelatedMovieProjection>> getRelatedMovies(@PathVariable("id_pelicula") Integer idPelicula) {
+    @GetMapping("/{id_movie}/related")
+    public ResponseEntity<List<RelatedMovieProjection>> getRelatedMovies(@PathVariable("id_movie") Integer idPelicula) {
         if (!movieRepositoryDB.existsById(idPelicula)) {
             return ResponseEntity.notFound().build();
         }
