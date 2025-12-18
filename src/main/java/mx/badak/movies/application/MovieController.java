@@ -29,8 +29,9 @@ public class MovieController {
     @GetMapping
     public List<MovieDto> getAllMovies(
             @RequestParam (defaultValue = "0") final int page,
-            @RequestParam (defaultValue = "8") final int size) {
-        return movieService.getAllMovies(page, size);
+            @RequestParam (defaultValue = "8") final int size,
+            @RequestParam(required = false) final String name) {
+        return movieService.getAllMovies(page, size, name);
     }
 
     @GetMapping("/details/{id}")

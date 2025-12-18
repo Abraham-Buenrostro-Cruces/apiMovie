@@ -6,7 +6,7 @@ import mx.badak.movies.domain.model.MovieDto;
 import java.util.List;
 
 public interface MovieService {
-    List<MovieDto> getAllMovies(int page, int size);
+    List<MovieDto> getAllMovies(int page, int size, String name);
     MovieDetailedDto getMovieById(Integer movieId, Integer userId);
     boolean deleteById(Integer movieId);
     void postMovie(MovieCreatedDto createdDto);
