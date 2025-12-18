@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReviewRepositoryDB extends JpaRepository<ReviewEntity, Integer> {
 
@@ -21,4 +22,7 @@ public interface ReviewRepositoryDB extends JpaRepository<ReviewEntity, Integer>
 
     @Query("SELECT r.rating FROM ReviewEntity r WHERE r.movieId = :movieId AND r.userId = :userId")
     Integer getRatingByMovieIdAndUserId(@Param("movieId") Integer movieId, @Param("userId") Integer userId);
+
+    Optional<ReviewEntity> findByUserIdAndMovieId(Integer userId, Integer movieId);
+
 }

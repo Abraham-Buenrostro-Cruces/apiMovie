@@ -58,4 +58,18 @@ public class ReviewServiceImpl implements ReviewService {
                 .map(ReviewMapper::toDto)
                 .toList();
     }
+
+    @Override
+    public ReviewDto updateReview(Integer movieId, Integer userId, ReviewDto dto) {
+
+        ReviewEntity existing = repository.findByUserIdAndMovieId(userId, movieId).orElseThrow(
+                () -> new RuntimeException("Review no encontrada")
+        );
+
+        existing.setRating(dto.rating());
+        existing.setComment(dto.comment());
+
+        ReviewEntity updated = repository.save(existing);
+        return ReviewMapper.toDto(updated);
+    }
 }
