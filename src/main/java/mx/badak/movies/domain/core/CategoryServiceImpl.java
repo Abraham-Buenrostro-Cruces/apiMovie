@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepositoryDB categoryRepositoryDB;
     private final CategoryMapper categoryMapper;
