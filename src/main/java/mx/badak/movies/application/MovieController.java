@@ -12,12 +12,7 @@ import mx.badak.movies.domain.model.MovieDetailedDto;
 import mx.badak.movies.domain.model.MovieDto;
 import mx.badak.movies.domain.service.MovieService;
 import org.slf4j.Logger;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
